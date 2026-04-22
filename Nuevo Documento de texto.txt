@@ -1,0 +1,57 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.stats as stats
+from sklearn.preprocessing import LabelEncoder
+
+df = pd.read_csv("heart_2.csv")
+df.head(2)
+
+##Exploratory data Analysis (EDA)
+
+df.info()
+
+print(f'\nDuplicated: {df.duplicated().sum()}\n')
+
+df.describe()
+
+print(f"Cholesterol = 0: {round((df["Cholesterol"]==0).sum()*100/df.shape[0],1)}%")
+print(f"RestingBP = 0: {round((df["RestingBP"]==0).sum()*100/df.shape[0],1)}%")
+print(f"Oldpeak < 0: {round((df["Oldpeak"]<0).sum()*100/df.shape[0],1)}%")
+
+df["RestingBP"] = df["RestingBP"].replace(0, np.nan)
+df = df.dropna(subset=["RestingBP"])
+df = df[df["Oldpeak"]>=0]
+
+df["Cholesterol"] = df["Cholesterol"].replace(0, np.nan)
+df["Cholesterol"] = df["Cholesterol"].fillna(df['Cholesterol'].median())
+
+display(df["Sex"].unique())
+display(df["ChestPainType"].unique())
+display(df["RestingECG"].unique())
+display(df["ExerciseAngina"].unique())
+display(df["ST_Slope"].unique())
+
+le = LabelEncoder()
+binary_cols = ["Sex", "ExerciseAngina"]
+for bin in binary_cols:
+    df[bin] = le.fit_transform(df[bin])
+
+categoric_cols = ["ChestPainType", "RestingECG", "ST_Slope"]
+df = pd.get_dummies(df, categoric_cols, drop_first=True).astype(int)
+
+print(df.isnull().sum())
+
+print(df.isna().sum())
+
+df.sample(5).T
+
+Values equal to 0 in _RestingBP_ and negative values in _Oldpeak_ are considered inconsistent with their clinical definitions and likely correspond to data entry or measurement errors. Given their very low proportion in the dataset (0.1% and 1.4%, respectively), these observations were removed, as their impact on the overall distribution is negligible.
+
+In contrast, approximately 19% of the values in _Cholesterol_ are equal to 0. Due to this high proportion, removing these observations would significantly reduce the dataset and potentially introduce bias. Therefore, these values were treated as missing and imputed using the median, which is robust to outliers. However, the unusually high proportion of zero values in _Cholesterol_ suggests a potential systematic recording issue or placeholder value, rather than true physiological measurements.
+
+Categorical variables were encoded using one-hot encoding. Resulting boolean features were converted to integer format (0/1) for compatibility and interpretability.
+
+I used one-hot encoding with _drop first=True_ to avoid multicollinearity. The dropped category acts as a baseline, and when all dummy variables are zero, the observation belongs to that reference category.
+
+After the cleaning there is no null or empty data.
