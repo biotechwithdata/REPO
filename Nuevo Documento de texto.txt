@@ -152,3 +152,83 @@ Implicaciones para el modelado:
 Modelos sensibles a la normalidad (como regresión lineal clásica) podrían verse afectados.
 Se recomienda evaluar transformaciones o usar modelos robustos (árboles, boosting).
 Los outliers podrían contener información relevante (pacientes de alto riesgo), por lo que no deberían eliminarse sin justificación.
+
+Model
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+
+corr = corr.reset_index().rename(columns={"index":"Features", "HeartDisease":"Correlation"})
+corr = corr[corr["Features"] != "HeartDisease"]
+
+corr_head = corr.head(3) 
+corr_tail = corr.tail(3)
+features = pd.concat([corr_head["Features"], corr_tail["Features"]], join="outer").tolist()
+
+X = df[features]
+y = df["HeartDisease"]
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+Cross-validation
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y,
+                                                    test_size=0.20,
+                                                    random_state=101,
+                                                    stratify=y)
+lm = LinearRegression()
+lm.fit(X_train, y_train)
+
+display(lm.coef_)
+display(lm.intercept_)
+y_pred = lm.predict(X_test)
+y_pred[:5]
+y_test[:5]
+
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+
+clf = DecisionTreeClassifier(random_state=101)
+clf.fit(X_train, y_train)
+
+y_pred_tree = clf.predict(X_test)
+
+plt.figure(figsize=(20,10))
+plot_tree(clf, feature_names=X.columns,
+          class_names=["Normal", "Cardiopathy"],
+          filled=True)
+
+rfc = RandomForestClassifier(n_estimators=200)
+rfc.fit(X_train,y_train)
+
+y_pred_rfc = rfc.predict(X_test)
+
+importances = rfc.feature_importances_
+
+indices = np.argsort(importances)[::-1]
+
+feature_names = X.columns
+
+# Plot
+plt.figure(figsize=(12, 8))
+plt.title("Importance of Features in Random Forest")
+plt.bar(range(X_train.shape[1]), importances[indices], align="center")
+plt.xticks(range(X_train.shape[1]), feature_names[indices], rotation=90)
+plt.xlim([-1, X_train.shape[1]])
+plt.xlabel("Feature")
+plt.ylabel("Importance")
+plt.tight_layout()
+plt.show()
+
+# Classification reports
+report_tree = classification_report(y_test, y_pred_tree, output_dict=True)
+report_forest = classification_report(y_test, y_pred_rfc, output_dict=True)
+report_logistic = classification_report(y_test, y_pred, output_dict=True)
+
+tree_df = pd.DataFrame(report_tree).transpose()
+forest_df = pd.DataFrame(report_forest).transpose()
+logistic_df = pd.DataFrame(report_logistic).transpose()
+
+comparison_df = pd.concat([tree_df, forest_df, logistic_df], axis=1, keys=["Decision Tree", "Random Forest", "Logistic Regression"])
+comparison_df
