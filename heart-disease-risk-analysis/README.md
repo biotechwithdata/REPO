@@ -130,7 +130,7 @@ Logistic Regression achieved the best balance between:
 
 ![Model Comparison Table](images/model_metrics.png)
 
-![Confusion Matrix](images/confusion-matrix.png
+![Confusion Matrix](images/confusion-matrix.png)
 
 ### Threshold Optimization
 
