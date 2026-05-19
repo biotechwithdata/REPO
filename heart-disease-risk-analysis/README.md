@@ -29,6 +29,18 @@ The main objective was to develop a predictive model capable of identifying pati
 
 ### Data Understanding
 
+The dataset was initially explored to assess its structure, feature types, target distribution, and overall data quality.
+
+Special attention was given to:
+
+- Clinical interpretation of variables
+- Detection of duplicated records
+- Identification of inconsistent physiological values
+- Distribution of categorical and numerical features
+- Class balance of the target variable (*HeartDisease*)
+
+This step provided the foundation for subsequent cleaning, exploratory analysis, and modeling decisions.
+
 ### Data Cleaning
 
 * Removed physiologically inconsistent values:
@@ -73,10 +85,12 @@ Main findings:
 * Higher *Oldpeak* and Lower *MaxHR* values were strongly associated with heart disease.
 * Exercise-induced angina, type of chest pain, slope segment ST of max exercise and fasting blood sugar showed a strong association with cardiovascular risk
 
+![Numeric Bivariate Analysis Grid](images/numeric-bivariate-analysis-grid.png)
+
 ### Feature Engineering & Preprocessing
 
 * Categorical variables were transformed using One-hot encoding for nominal categorical variables.
-*  `drop_first=True` was applied to avoid multicollinearity by using reference categories.
+* `drop_first=True` was applied to avoid multicollinearity by using reference categories.
 
 ### Correlation Analysis
 
@@ -114,13 +128,15 @@ Logistic Regression achieved the best balance between:
 * Recall
 * Interpretability
 
-#### Final Metrics
+![Model Comparison Table](images/model_metrics.png)
 
-![1779139105345](image/README/1779139105345.png)
+![Confusion Matrix](confusion-Matrix.png)
 
 ### Threshold Optimization
 
 Threshold tuning was performed to reduce false negatives and improve sensitivity to heart disease cases.
+
+![Heart Disease Model Evaluation](images/heart_disease_model_evaluation.png)
 
 #### Clinical motivation
 
@@ -137,6 +153,8 @@ This trade-off was considered clinically acceptable despite a moderate increase 
 ### Model Interpretability
 
 Logistic Regression coefficients and Odds Ratios were analyzed to identify the most influential predictors.
+
+![Feature importance](images/feature_importance.png)
 
 #### Main Positive Predictors
 
@@ -171,14 +189,16 @@ The learned relationships were consistent with known cardiovascular risk factors
 
 ## Repository Structure
 
+```plaintext
 heart-disease-risk-analysis/
-│
-├── data/
-├── images/
-├── notebook/
-├── README.md
-├── requirements.txt
+|
+├── data/               # Dataset
+├── notebook            # Jupyter notebook
+    └── images/         # Exported figures and visualizations
+├── README.md           # Project overview
+├── requirements.txt    # Python dependencies
 └── .gitignore
+```
 
 ## Future Work
 
@@ -190,9 +210,12 @@ heart-disease-risk-analysis/
 
 ### **Tomás Barría**
 
-Biotechnology Engineer transitioning into Data Science and Analytics with interests in:
+Biotechnology Engineer with growing expertise in Data Science and Analytics, focused on combining biotechnology, healthcare, and data-driven decision making.
+
+Interests:
 
 * Healthcare Analytics
 * Machine Learning
 * Predictive Modeling
 * Data Visualization
+* Bioprocess and Industrial Analytics
