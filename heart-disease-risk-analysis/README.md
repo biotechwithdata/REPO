@@ -1,5 +1,9 @@
 # Heart Disease Risk Prediction using Machine Learning
-
+![Python](https://img.shields.io/badge/Python-3.13-blue)
+![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-black)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-Machine%20Learning-orange)
+![XGBoost](https://img.shields.io/badge/XGBoost-Boosting-green)
+![Healthcare](https://img.shields.io/badge/Domain-Healthcare-red)
 ## Project Overview
 
 This project explores the prediction of heart disease using clinical and physiological patient data through a complete machine learning workflow. The analysis includes data cleaning, exploratory data analysis (EDA), feature engineering, model evaluation, threshold optimization, and model interpretability.
