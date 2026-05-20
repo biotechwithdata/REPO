@@ -199,8 +199,8 @@ The learned relationships were consistent with known cardiovascular risk factors
 heart-disease-risk-analysis/
 |
 ├── data/               # Dataset
-├── notebook            # Jupyter notebook
-    └── images/         # Exported figures and visualizations
+├── images/             # Exported figures and visualizations
+├── notebook/           # Jupyter notebook
 ├── README.md           # Project overview
 ├── requirements.txt    # Python dependencies
 └── .gitignore
