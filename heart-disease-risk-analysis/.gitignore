@@ -17,3 +17,9 @@ Thumbs.db
 
 # Python compiled files
 *.pyc
+
+# Files
+heart_cleaned.csv
+heart.csv
+models_performance.png
+threshold_comparison.png
