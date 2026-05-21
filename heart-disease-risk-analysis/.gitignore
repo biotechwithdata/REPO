@@ -19,7 +19,7 @@ Thumbs.db
 *.pyc
 
 # Files
-heart_cleaned.csv
-heart.csv
-models_performance.png
-threshold_comparison.png
+heart-disease-risk-analysis/notebook/heart_cleaned.csv
+heart-disease-risk-analysis/notebook/heart.csv
+heart-disease-risk-analysis/notebook/models_performance.png
+heart-disease-risk-analysis/notebook/threshold_comparison.png
