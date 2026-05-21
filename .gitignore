@@ -1,2 +1,28 @@
+# Python cache
+__pycache__/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+env/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# VSCode settings
+.vscode/
+
+# Python compiled files
+*.pyc
+
+# Files
+heart-disease-risk-analysis/notebook/heart_cleaned.csv
+heart-disease-risk-analysis/notebook/heart.csv
+heart-disease-risk-analysis/notebook/models_performance.png
+heart-disease-risk-analysis/notebook/threshold_comparison.png
+heart-disease-risk-prediction.pdf
 ECV_analisis_riesgo.ipynb
 kaggle.ipynb
