@@ -1,0 +1,24 @@
+# Python cache
+__pycache__/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+env/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# VSCode settings
+.vscode/
+
+# Python compiled files
+*.pyc
+
+# Files
+heart-disease-risk-prediction.pdf
+ECV_analisis_riesgo.ipynb
+kaggle.ipynb
